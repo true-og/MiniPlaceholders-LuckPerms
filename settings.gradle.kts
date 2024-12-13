@@ -1,5 +1,5 @@
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
-rootProject.name = "LuckPerms-Expansion"
+rootProject.name = "MiniPlaceholders-LuckPerms"
 
 dependencyResolutionManagement {
     repositories {
@@ -13,18 +13,15 @@ pluginManagement {
     repositories {
         gradlePluginPortal()
         mavenCentral()
-        maven("https://maven.fabricmc.net/")
-        maven("https://maven.quiltmc.org/repository/release/")
     }
 }
 
-arrayOf("common", "paper", "velocity", "sponge", "fabric").forEach {
+arrayOf("common", "paper").forEach {
     include("luckperms-expansion-$it")
     project(":luckperms-expansion-$it").projectDir = file(it)
 }
 
 plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
-    id("fabric-loom") version "1.4.4"
     id("org.spongepowered.gradle.plugin") version "2.2.0"
 }
