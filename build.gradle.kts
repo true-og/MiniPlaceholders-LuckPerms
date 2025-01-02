@@ -22,7 +22,7 @@ subprojects {
 
 tasks {
     shadowJar {
-        archiveFileName.set("MiniPlaceholders-LuckPerms-Expansion-${project.version}.jar")
+        archiveFileName.set("MiniPlaceholders-LuckPerms-${project.version}.jar")
         archiveClassifier.set("")
         doLast {
             copy {
