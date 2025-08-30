@@ -1,6 +1,7 @@
 plugins {
     java
-    alias(libs.plugins.shadow)
+	eclipse
+    id("com.gradleup.shadow") version "8.3.6" // Import Shadow plugin.
 }
 
 dependencies {

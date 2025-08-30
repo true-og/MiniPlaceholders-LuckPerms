@@ -1,6 +1,6 @@
 plugins {
     id("fabric-loom")
-    alias(libs.plugins.shadow)
+    id("com.gradleup.shadow") version "8.3.6" // Import Shadow plugin.
 }
 
 val shade: Configuration by configurations.creating
