@@ -1,7 +1,7 @@
 plugins {
     java
-	eclipse
-    id("com.gradleup.shadow") version "8.3.6" // Import Shadow plugin.
+    eclipse
+    id("com.gradleup.shadow") version "8.3.9" // Import Shadow plugin.
 }
 
 dependencies {
@@ -25,7 +25,7 @@ subprojects {
 
 tasks {
     shadowJar {
-        archiveFileName.set("MiniPlaceholders-LuckPerms-Expansion-${project.version}.jar")
+        archiveFileName.set("MiniPlaceholders-LuckPerms-${project.version}.jar")
         archiveClassifier.set("")
         doLast {
             copy {
