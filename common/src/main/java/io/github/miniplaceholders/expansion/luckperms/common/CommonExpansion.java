@@ -29,14 +29,14 @@ public record CommonExpansion(LuckPerms luckPerms) {
                     if (user == null) {
                         return null;
                     }
-                    return Tag.inserting(parsePossibleLegacy(user.getCachedData().getMetaData().getPrefix(), ctx));
+                    return Tag.inserting(parsePossibleLegacy(stripOrNull(user.getCachedData().getMetaData().getPrefix()), ctx));
                 })
                 .audiencePlaceholder("suffix", (aud, queue, ctx) -> {
                     final User user = user(aud);
                     if (user == null) {
                         return null;
                     }
-                    return Tag.inserting(parsePossibleLegacy(user.getCachedData().getMetaData().getSuffix(), ctx));
+                    return Tag.inserting(parsePossibleLegacy(stripOrNull(user.getCachedData().getMetaData().getSuffix()), ctx));
                 })
                 .audiencePlaceholder("meta", (aud, queue, ctx) -> {
                     final User user = user(aud);
@@ -52,7 +52,7 @@ public record CommonExpansion(LuckPerms luckPerms) {
                     if (result == null) {
                         return TagsUtils.EMPTY_TAG;
                     }
-                    return Tag.preProcessParsed(result);
+                    return Tag.preProcessParsed(result.strip());
                 })
                 .audiencePlaceholder("has_permission", (aud, queue, ctx) -> {
                     final User user = user(aud);
@@ -85,7 +85,7 @@ public record CommonExpansion(LuckPerms luckPerms) {
                         return null;
                     }
                     final Component groups = user.getInheritedGroups(user.getQueryOptions()).stream()
-                            .map(group -> parsePossibleLegacy(group.getDisplayName(), ctx))
+                            .map(group -> parsePossibleLegacy(stripOrNull(group.getDisplayName()), ctx))
                             .collect(Component.toComponent(Component.text(", ")));
                     return Tag.selfClosingInserting(groups);
                 })
@@ -98,7 +98,7 @@ public record CommonExpansion(LuckPerms luckPerms) {
                     if (primaryGroup == null) {
                         return TagsUtils.EMPTY_TAG;
                     }
-                    return Tag.preProcessParsed(primaryGroup);
+                    return Tag.preProcessParsed(primaryGroup.strip());
                 })
                 .audiencePlaceholder("inherits_group", (aud, queue, ctx) -> {
                     final User user = user(aud);
@@ -111,6 +111,10 @@ public record CommonExpansion(LuckPerms luckPerms) {
                             : FALSE_COMPONENT
                     );
                 });
+    }
+
+    private static String stripOrNull(final String value) {
+        return value == null ? null : value.strip();
     }
 
     private User user(final Audience audience) {
